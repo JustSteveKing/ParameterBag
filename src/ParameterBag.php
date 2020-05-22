@@ -51,7 +51,7 @@ class ParameterBag
      * 
      * @param   string  $key
      * @param   string  $value
-     * @return  void
+     * @return  self
      */
     public function set(string $key, string $value): self
     {
