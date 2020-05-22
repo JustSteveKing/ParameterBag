@@ -16,7 +16,9 @@
             "homepage": "https://www.juststeveking.uk"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "~7.4"
+    },
     "autoload": {
         "psr-4": {
             "JustSteveKing\\ParameterBag\\": "src/"
