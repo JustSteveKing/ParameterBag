@@ -93,7 +93,7 @@ class ParameterBag
      */
     public static function fromString(string $attributes, string $delimitter = '&'): self
     {
-        return new static(
+        return new self(
             self::mapToAssoc(
                 explode($delimitter, $attributes),
                 function (string $keyValue) {
