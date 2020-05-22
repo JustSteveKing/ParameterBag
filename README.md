@@ -1,6 +1,7 @@
 # Parameter Bag
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
+[![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
@@ -57,9 +58,12 @@ class Config
 [ico-downloads]: https://img.shields.io/packagist/dt/juststeveking/parameterbag.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/JustSteveKing/parameterbag.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/JustSteveKing/parameterbag.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/juststeveking/parameterbag/master.svg?style=flat-square
+
 
 [link-scrutinizer]: https://scrutinizer-ci.com/g/JustSteveKing/parameterbag/code-structure
 [link-packagist]: https://packagist.org/packages/juststeveking/parameterbag
 [link-downloads]: https://packagist.org/packages/juststeveking/parameterbag
 [link-author]: https://github.com/JustSteveKing
 [link-code-quality]: https://scrutinizer-ci.com/g/JustSteveKing/parameterbag
+[link-travis]: https://travis-ci.org/juststeveking/parameterbag
