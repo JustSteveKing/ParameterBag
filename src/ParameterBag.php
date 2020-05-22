@@ -8,14 +8,14 @@ class ParameterBag
 {
     /**
      * The parameters in our bag
-     * 
+     *
      * @var array
      */
     protected array $parameters;
 
     /**
      * The Parameter Bag Constructor
-     * 
+     *
      * @param array $parameters
      * @return void
      */
@@ -26,29 +26,29 @@ class ParameterBag
 
     /**
      * Check to see if our bad contains a parameter
-     * 
+     *
      * @param string $key
      * @return bool
      */
-    public function has(string $key) : bool
+    public function has(string $key): bool
     {
         return array_key_exists($key, $this->parameters);
     }
 
     /**
      * Get an item out of our bag
-     * 
+     *
      * @param   string  $key
      * @return  string
      */
-    public function get(string $key) : string
+    public function get(string $key): string
     {
         return $this->parameters[$key];
     }
 
     /**
      * Set an item in our bag (this will over write the current value)
-     * 
+     *
      * @param   string  $key
      * @param   string  $value
      * @return  self
@@ -62,7 +62,7 @@ class ParameterBag
 
     /**
      * Remove an item from our bag
-     * 
+     *
      * @param   string  $key
      * @return  self
      */
@@ -75,7 +75,7 @@ class ParameterBag
 
     /**
      * Get all items from our bag
-     * 
+     *
      * @return  array
      */
     public function all(): array
@@ -85,10 +85,10 @@ class ParameterBag
 
     /**
      * Create a new bag from a string
-     * 
+     *
      * @param   string  $attributes
      * @param   string  $delimitter
-     * 
+     *
      * @return  self
      */
     public static function fromString(string $attributes, string $delimitter = '&'): self
