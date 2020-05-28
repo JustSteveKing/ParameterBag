@@ -97,4 +97,18 @@ class ParameterBagTest extends TestCase
         $this->assertTrue($bag->has('test'));
         $this->assertEquals('true', $bag->get('test'));
     }
+
+    public function testWeCanSetAnArrayAsAValueOnTheBag()
+    {
+        $bag = $this->buildParameterBag(
+            $parameters = [
+            'data' => ['foo' => 'bar']
+            ]
+        );
+        $this->assertTrue($bag->has('data'));
+        $this->assertEquals(
+            ['foo' => 'bar'],
+            $bag->get('data')
+        );
+    }
 }

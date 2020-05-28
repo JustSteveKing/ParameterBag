@@ -39,9 +39,9 @@ class ParameterBag
      * Get an item out of our bag
      *
      * @param   string  $key
-     * @return  string
+     * @return  mixed
      */
-    public function get(string $key): string
+    public function get(string $key)
     {
         return $this->parameters[$key];
     }
@@ -50,10 +50,10 @@ class ParameterBag
      * Set an item in our bag (this will over write the current value)
      *
      * @param   string  $key
-     * @param   string  $value
+     * @param   mixed  $value
      * @return  self
      */
-    public function set(string $key, string $value): self
+    public function set(string $key, $value): self
     {
         $this->parameters[$key] = $value;
 
