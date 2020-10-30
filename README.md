@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 ![run-tests](https://github.com/JustSteveKing/ParameterBag/workflows/run-tests/badge.svg)
-[![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 A flexible parameter bag in place of standard arrays on PHP classes
@@ -55,10 +54,8 @@ class Config
 
 [ico-version]: https://img.shields.io/packagist/v/juststeveking/parameterbag.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/juststeveking/parameterbag.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/JustSteveKing/parameterbag.svg?style=flat-square
 
 
 [link-packagist]: https://packagist.org/packages/juststeveking/parameterbag
 [link-downloads]: https://packagist.org/packages/juststeveking/parameterbag
 [link-author]: https://github.com/JustSteveKing
-[link-code-quality]: https://scrutinizer-ci.com/g/JustSteveKing/parameterbag
