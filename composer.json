@@ -25,6 +25,7 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "pestphp/pest": "^1.8"
+        "pestphp/pest": "^1.8",
+        "vimeo/psalm": "^4.8"
     }
 }

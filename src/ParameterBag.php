@@ -104,7 +104,7 @@ class ParameterBag
     {
         return array_reduce(
             $items,
-            function (array $assoc, $item) use ($callback) {
+            function (array $assoc, mixed $item) use ($callback): array {
                 [$key, $value] = $callback($item);
                 $assoc[$key] = $value;
 
