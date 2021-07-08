@@ -1,114 +1,186 @@
 <?php
 
-declare(strict_types=1);
-
-namespace JustSteveKing\Tests\ParameterBag;
-
-use PHPUnit\Framework\TestCase;
 use JustSteveKing\ParameterBag\ParameterBag;
 
-class ParameterBagTest extends TestCase
-{
-    public function buildParameterBag(array $parameters = [])
-    {
-        return new ParameterBag($parameters);
-    }
+it('can create a new parameter bag', function () {
+    $object = createParameterBag();
 
-    public function testParameterBagCanBeCreated()
-    {
-        $this->assertInstanceOf(
-            ParameterBag::class,
-            $this->buildParameterBag()
-        );
-    }
+    expect(
+        value: $object,
+    )->toBeInstanceOf(
+        class: ParameterBag::class
+    );
 
-    public function testCanGetParameterFromParameterBag()
-    {
-        $bag = $this->buildParameterBag(
-            [
+    expect(
+        value: $object->all(),
+    )->toBeEmpty();
+});
+
+it('can create a new parameter bag with default parameters', function () {
+    $object = createParameterBag(
+        parameters: [
             'foo' => 'bar'
-            ]
-        );
+        ],
+    );
 
-        $this->assertEquals(
-            'bar',
-            $bag->get('foo')
-        );
-    }
+    expect(
+        value: $object->all(),
+    )->toHaveCount(
+        count: 1,
+    )->toEqual(
+        expected: ['foo' => 'bar'],
+    );
+});
 
-    public function testCanCheckIfParameterBagHasItem()
-    {
-        $bag = $this->buildParameterBag(
-            [
+it('can retrieve items from the parameterbag', function () {
+    $object = createParameterBag(
+        parameters: [
             'foo' => 'bar'
-            ]
-        );
+        ],
+    );
 
-        $this->assertTrue($bag->has('foo'));
-    }
+    expect(
+        value: $object->get(
+            key: 'foo'
+        ),
+    )->toEqual(
+        expected: 'bar',
+    );
+});
 
-    public function testCanGetAllParametersFromBag()
-    {
-        $bag = $this->buildParameterBag(
-            $parameters = [
-            'foo' => 'bar'
-            ]
-        );
+it('can set items on a parameter bag', function () {
+    $object = createParameterBag();
 
-        $this->assertEquals($parameters, $bag->all());
-    }
+    expect(
+        value: $object->all(),
+    )->toBeEmpty()->toHaveCount(
+        count: 0,
+    )->toEqual(
+        expected: [],
+    );
 
-    public function testCanSetItemOnParameterBag()
-    {
-        $bag = $this->buildParameterBag();
-        $this->assertEquals([], $bag->all());
-        $bag->set('foo', 'bar');
-        $this->assertTrue($bag->has('foo'));
-    }
+    $object->set(
+        key: 'foo',
+        value: 'bar',
+    );
 
-    public function testCanRemoveItemFromParameterBag()
-    {
-        $bag = $this->buildParameterBag(
-            $parameters = [
-            'foo' => 'bar'
-            ]
-        );
-        $this->assertTrue($bag->has('foo'));
-        $bag->remove('foo');
-        $this->assertEquals([], $bag->all());
-    }
+    expect(
+        value: $object->all(),
+    )->toHaveCount(
+        count: 1,
+    )->toEqual(
+        expected: ['foo' => 'bar'],
+    );
 
-    public function testCanGetAllItemsFromAtttributeBag()
-    {
-        $bag = $this->buildParameterBag(
-            $parameters = [
-            'foo' => 'bar'
-            ]
-        );
-        $this->assertTrue($bag->has('foo'));
-    }
+    expect(
+        value: $object->get(
+        key: 'foo'
+    ),
+    )->toEqual(
+        expected: 'bar',
+    );
+});
 
-    public function testWeCanBuildAnAtributeBagFromAString()
-    {
-        $string = "foo=bar&test=true";
-        $bag = ParameterBag::fromString($string);
-        $this->assertTrue($bag->has('foo'));
-        $this->assertEquals('bar', $bag->get('foo'));
-        $this->assertTrue($bag->has('test'));
-        $this->assertEquals('true', $bag->get('test'));
-    }
+it('can remove items from the parameter bag', function () {
+    $object = createParameterBag(
+        parameters: [
+                        'foo' => 'bar'
+                    ],
+    );
 
-    public function testWeCanSetAnArrayAsAValueOnTheBag()
-    {
-        $bag = $this->buildParameterBag(
-            $parameters = [
-            'data' => ['foo' => 'bar']
-            ]
-        );
-        $this->assertTrue($bag->has('data'));
-        $this->assertEquals(
-            ['foo' => 'bar'],
-            $bag->get('data')
-        );
-    }
-}
+    expect(
+        value: $object->get(
+        key: 'foo'
+    ),
+    )->toEqual(
+        expected: 'bar',
+    );
+
+    $object->remove(
+        key: 'foo',
+    );
+
+    expect(
+        value: $object->all(),
+    )->toHaveCount(
+        count: 0,
+    )->toBeEmpty()->toEqual(
+        expected: [],
+    );
+});
+
+it('can build a parameter bag from a string', function () {
+    $string = "foo=bar&test=true";
+    $object = ParameterBag::fromString(
+        attributes: $string,
+    );
+
+    expect(
+        value: $object->all(),
+    )->toHaveCount(
+        count: 2,
+    )->toEqual(
+        expected: [
+            'foo' => 'bar',
+            'test' => 'true',
+        ],
+    );
+});
+
+it('can set something other than a string as a value', function () {
+    $object = createParameterBag(
+        parameters: [
+            'test' => true,
+        ],
+    );
+
+    expect(
+        value: $object->get('test'),
+    )->toBeBool()->toEqual(
+        expected: true,
+    );
+
+    $object->remove(
+        key: 'test',
+    );
+
+    expect(
+        value: $object->all(),
+    )->toBeEmpty();
+
+    $object->set(
+        key: 'test',
+        value: [
+            'framework' => 'pest',
+        ],
+    );
+
+    expect(
+        value: $object->all(),
+    )->toHaveCount(
+        count: 1,
+    )->toEqual(
+        expected: ['test' => ['framework' => 'pest']],
+    );
+});
+
+it('can check if an item is in the parameter bag', function () {
+    $object = createParameterBag();
+
+    expect(
+        value: $object->has(
+            key: 'test',
+        ),
+    )->toBeFalse();
+
+    $object->set(
+        key: 'test',
+        value: 'test',
+    );
+
+    expect(
+        value: $object->has(
+        key: 'test',
+    ),
+    )->toBeTrue();
+});
