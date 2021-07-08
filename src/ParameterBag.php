@@ -7,25 +7,17 @@ namespace JustSteveKing\ParameterBag;
 class ParameterBag
 {
     /**
-     * The parameters in our bag
-     *
-     * @var array
-     */
-    protected array $parameters;
-
-    /**
      * The Parameter Bag Constructor
      *
      * @param array $parameters
      * @return void
      */
-    public function __construct(array $parameters = [])
-    {
-        $this->parameters = $parameters;
-    }
+    public function __construct(
+        protected array $parameters = [],
+    ) {}
 
     /**
-     * Check to see if our bad contains a parameter
+     * Check to see if our bag contains a parameter
      *
      * @param string $key
      * @return bool
@@ -41,7 +33,7 @@ class ParameterBag
      * @param   string  $key
      * @return  mixed
      */
-    public function get(string $key)
+    public function get(string $key): mixed
     {
         return $this->parameters[$key];
     }
@@ -53,7 +45,7 @@ class ParameterBag
      * @param   mixed  $value
      * @return  self
      */
-    public function set(string $key, $value): self
+    public function set(string $key, mixed $value): self
     {
         $this->parameters[$key] = $value;
 
@@ -95,8 +87,8 @@ class ParameterBag
     {
         return new self(
             self::mapToAssoc(
-                explode($delimitter, $attributes),
-                function (string $keyValue) {
+                items: explode($delimitter, $attributes),
+                callback: function (string $keyValue) {
                     $parts = explode('=', $keyValue, 2);
 
                     return count($parts) === 2 ? $parts : [$parts[0], null];
@@ -112,7 +104,7 @@ class ParameterBag
     {
         return array_reduce(
             $items,
-            function (array $assoc, $item) use ($callback) {
+            function (array $assoc, mixed $item) use ($callback): array {
                 [$key, $value] = $callback($item);
                 $assoc[$key] = $value;
 
