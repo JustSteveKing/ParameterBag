@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace JustSteveKing\ParameterBag;
 
+/**
+ * @template TKey of array-key
+ * @template TValue
+ */
 class ParameterBag
 {
     /**
      * The Parameter Bag Constructor
      *
-     * @param array $parameters
+     * @param array<TKey, TValue> $parameters
      * @return void
      */
     public function __construct(
@@ -41,13 +45,16 @@ class ParameterBag
     /**
      * Set an item in our bag (this will over write the current value)
      *
-     * @param   string  $key
+     * @param   string $key
      * @param   mixed  $value
-     * @return  self
+     * @return  self<TKey, TValue>
      */
     public function set(string $key, mixed $value): self
     {
-        $this->parameters[$key] = $value;
+        array_push(
+            $this->parameters,
+            [$key => $value]
+        );
 
         return $this;
     }
@@ -56,7 +63,7 @@ class ParameterBag
      * Remove an item from our bag
      *
      * @param   string  $key
-     * @return  self
+     * @return  self<TKey, TValue>
      */
     public function remove(string $key): self
     {
@@ -68,7 +75,7 @@ class ParameterBag
     /**
      * Get all items from our bag
      *
-     * @return  array
+     * @return  array<TKey, TValue>
      */
     public function all(): array
     {
@@ -81,12 +88,13 @@ class ParameterBag
      * @param   string  $attributes
      * @param   string  $delimitter
      *
-     * @return  self
+     * @return  self<TKey, TValue>
      */
     public static function fromString(string $attributes, string $delimitter = '&'): self
     {
         return new self(
             self::mapToAssoc(
+                /** @phpstan-ignore-next-line */
                 items: explode($delimitter, $attributes),
                 callback: function (string $keyValue) {
                     $parts = explode('=', $keyValue, 2);
@@ -99,6 +107,12 @@ class ParameterBag
 
     /**
      * @codeCoverageIgnore
+     *
+     * @template TMapValue
+     *
+     * @param array<TKey, TValue> $items
+     * @param callable $callback
+     * @return array
      */
     private static function mapToAssoc(array $items, callable $callback): array
     {

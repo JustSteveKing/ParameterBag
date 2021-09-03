@@ -1,0 +1,11 @@
+parameters:
+
+    paths:
+        - src
+
+    excludePaths:
+        - vendor/
+
+    level: max
+
+    checkMissingIterableValueType: false
