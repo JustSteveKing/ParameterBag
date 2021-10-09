@@ -51,7 +51,7 @@ class ParameterBag
      */
     public function set(string $key, mixed $value): self
     {
-        $this->parameters[$key] = $value;
+        $this->parameters = array_merge($this->parameters, [$key => $value]);
 
         return $this;
     }
